@@ -49,6 +49,7 @@ extension Connection {
     // MARK: - private
     private func _key_v2(db: String, keyPointer: UnsafePointer<UInt8>, keySize: Int) throws {
         try check(sqlite3_key_v2(handle, db, keyPointer, Int32(keySize)))
+        try run("PRAGMA cipher_migrate")
         try cipher_key_check()
     }
 
